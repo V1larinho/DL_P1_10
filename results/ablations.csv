@@ -1,0 +1,5 @@
+Ablation,Params_treinaveis,Epochs,Tempo_por_epoch_s,Best_val_AUC
+Baseline (4 blocos + BN + Aug),389633,24,112.6,0.9933
+Sem Augmentation,389633,13,49.6,0.9897
+Sem BatchNorm,388673,26,59.8,0.9928
+3 Blocos (sem Conv256),93825,18,68.9,0.9849

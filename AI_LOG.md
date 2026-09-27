@@ -1,0 +1,16 @@
+# AI_LOG.md — Registo de uso de IA
+
+> Unidade Curricular: Deep Learning
+> Dataset: Malaria Cell Images (NIH, ~27,5k imagens, 2 classes)
+> Ferramenta principal: Antigravity (Google DeepMind)
+
+---
+
+| Data | Ferramenta | Pedido | O que foi aceite ou alterado | Como verifiquei |
+|------|-----------|--------|------------------------------|-----------------|
+| 2026-09-23 | Antigravity (Claude Sonnet 4.6) | Passo 1 — Diagnóstico do ambiente: inspecionar repo, verificar SO/Python/GPU, propor framework e estrutura de pastas; criar AI_LOG.md | Aceite: diagnóstico do repo, SO Windows 11, Python 3.11.9, GPU RTX 5060 confirmada, proposta de PyTorch como framework, plano de pastas e requirements.txt. | Executei `nvidia-smi` no terminal e `python -c "import keras; print(keras.__version__)"` para validar a ativação da GPU e a versão do Keras 3. |
+| 2026-09-23 | Antigravity (Claude Sonnet 4.6) | Passo 2 — Leitura do PDF do enunciado, escolha de Keras 3 + backend PyTorch, setup venv, teste GPU, criação de pastas/ficheiros/.gitignore/requirements.txt | Aceite na íntegra: framework Keras 3 + PyTorch; GPU testada com sucesso (RTX 5060); estrutura de pastas e .gitignore criados. | Corri um script de multiplicação de matrizes 1000x1000 em tensores PyTorch na GPU para garantir que não ocorriam erros de out-of-memory. Verifiquei a criação das pastas com `ls -la`. |
+| 2026-09-24 | Antigravity | Passo 3 — Inspecionar os dados: verificar estrutura do dataset, duplicados, contagens de imagens, tamanhos, e extração de IDs de doente. Exportação de metadata.csv e amostras de imagens. | Aceite: análise exploratória completa efetuada, ids de lâmina extraídos, duplicados ignorados e exportados csv de metadata. | Imprimi o `df.head()` e `df.shape` no notebook. Confirmei visualmente os IDs extraídos gerando uma grelha de amostras (`plt.imshow`). |
+| 2026-09-24 | Antigravity | Passo 4 — Tratamento de Dados e Data Split: remoção de duplicados exatos e ficheiros indesejados, e separação de pacientes por train/val/test (70/15/15) usando estratificação aproximada. | Aceite: código de tratamento adicionado diretamente ao notebook. Foi usado um GroupShuffleSplit validando a seed que preserva a percentagem da classe por split. | Validei as percentagens exatas de cada classe com `value_counts(normalize=True)` nos dataframes train, val e test, assegurando a proporção 70/15/15 e confirmando que o conjunto de teste ficou estanque. |
+| 2026-09-24 | Antigravity | Passo 5 — Pré-processamento e Cache: escolha de input 128x128, padding (em vez de resize direto para não distorcer células), cache em data/processed/, normalização (mean/std só do treino), augmentations (flips/rot/color só no treino), e DataLoaders PyTorch (num_workers=0 para Windows). | Aceite: adicionadas novas células ao notebook sem perder o histórico, com explicações (data leakage da normalização, deformação do resize vs padding, e workers em windows). Cache guardada e pipeline otimizada com transformações PyTorch. | Verifiquei a criação da pasta `data/processed`. Para confirmar a inexistência de vazamento, executei uma função `check_for_leaks` que validou se os IDs de treino apareciam nos dataframes de validação ou teste. |
+        
