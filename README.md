@@ -1,6 +1,6 @@
 # Malaria Cell Detection — Deep Learning (Mestrado)
 
-Classificação binária de células de malária (Parasitized vs Uninfected) usando o dataset NIH/Kaggle (~27 500 imagens, 200 doentes).
+Classificação binária de células de malária (Parasitized vs Uninfected) usando o dataset NIH/Kaggle (27 558 imagens, 200 doentes).
 
 ---
 
@@ -10,7 +10,7 @@ Classificação binária de células de malária (Parasitized vs Uninfected) usa
 |---|---|
 | **Dataset** | [Malaria Cell Images — NIH](https://www.kaggle.com/datasets/iarunava/cell-images-for-detecting-malaria) |
 | **Classes** | `Parasitized` (1) · `Uninfected` (0) |
-| **Imagens** | ~27 500 após remoção de duplicados exactos |
+| **Imagens** | 27 558 (nenhum duplicado exato encontrado por hash MD5) |
 | **Doentes** | 200 IDs únicos extraídos do nome do ficheiro |
 | **Tamanho de entrada** | 128×128 px, padding preto (sem distorção) |
 | **Framework** | Keras 3 + backend PyTorch 2.11.0+cu128 |
@@ -40,9 +40,9 @@ python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 
-# 2. Colocar o dataset em cell_images/ (estrutura Kaggle)
-#    → cell_images/Parasitized/*.png
-#    → cell_images/Uninfected/*.png
+# 2. Colocar o dataset em data/raw/cell_images/ (estrutura Kaggle)
+#    → data/raw/cell_images/Parasitized/*.png
+#    → data/raw/cell_images/Uninfected/*.png
 
 # 3. Correr o notebook do início ao fim (Restart & Run All)
 #    notebooks/DL_P1_42.ipynb
@@ -50,7 +50,9 @@ pip install -r requirements.txt
 #    A célula de avaliação final invoca evaluate_all.py (incluído no repo).
 ```
 
-**SEED** usada em todo o projecto: `42` (Keras, NumPy, PyTorch, sklearn).
+> **Nota sobre o treino da CNN baseline (secção 16):** a célula de treino está intencionalmente comentada para que o *Restart & Run All* não demore vários minutos. O checkpoint final (`checkpoints/best_cnn.keras`) já está incluído/gerado no repositório. Para retreinar do zero, descomentar a célula manualmente antes de correr. **Atenção:** o `ModelCheckpoint` grava no mesmo caminho do checkpoint atual — descomentar e correr substitui o modelo existente.
+
+**SEED** usada em todo o projecto: `42` para o treino da rede (Keras, NumPy, PyTorch, sklearn). O split por doente usou uma semente escolhida entre ~100 candidatas — a que melhor preservava a proporção de classes em cada partição.
 
 > **Nota sobre determinismo:** mesmo com seed fixa, operações em GPU (cuDNN, CUDA atomics) introduzem não-determinismo residual entre máquinas ou versões de driver. Os resultados são reprodutíveis em tendência — as métricas devem convergir para a mesma gama de valores — mas pequenas diferenças na última casa decimal são esperadas e normais.
 

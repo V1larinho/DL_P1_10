@@ -1,0 +1,2 @@
+Modelo,Trainable Params,Best Epoch,Val Loss,Val AUC,Val Accuracy,Time (s)
+EfficientNetB0 (Feature Extraction),1281,17,0.1485898643732071,0.9851895570755005,0.9503286480903625,4861.62

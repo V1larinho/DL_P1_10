@@ -1,0 +1,5 @@
+lines = open('AI_LOG.md', 'r', encoding='utf-8').readlines()
+lines = lines[:17]
+lines.append('| 2026-10-06 | Antigravity (Gemini 3.1 Pro) | Aula Prática 2 completa — caracterização do dataset (2.1), divisão sem fugas por grupo e md5 (2.2), baseline CNN 4×Conv+GAP 30 épocas (2.3), curvas de aprendizagem e diagnóstico (2.4) num notebook único a correr top-to-bottom. | Aceite: Script de geração de notebook criado, `splits.csv` reaproveitado, e arquitetura da CNN construída e treinada (sem dados de teste). `RESULTADOS.md` validado. | |\n')
+lines.append('| 2026-10-08 | Antigravity (Gemini 3.1 Pro) | Aula Prática 3 (Parte 1) - Transfer Learning (Feature Extraction) com EfficientNetB0 | Aceite: Notebook gerado e otimizado com cache 224x224 em uint8 para resolver gargalo de I/O de disco. | Validei a disponibilidade da GPU com nvidia-smi, executei 1 época completa a ~162s. Treino de 30 épocas ativado em background com output encaminhado para logs/fe_train.log. |\n')
+open('AI_LOG.md', 'w', encoding='utf-8').writelines(lines)

@@ -23,5 +23,13 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# Cache de tensores e arrays (.npy)
+*.npy
+cache/
+*/cache/
+
 # Resultados grandes
 results/*.pth
+
+# Aula 2 - pastas de imagens (copias/symlinks)
+aula2/split/

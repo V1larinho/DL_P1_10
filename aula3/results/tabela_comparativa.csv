@@ -1,0 +1,4 @@
+Abordagem,Parametros Treinaveis,Melhor Epoca,Val Loss,Val AUC,Val Accuracy,Tempo Treino (s)
+Baseline CNN (Aula 2),388930,10,0.1335,N/A,0.9637,847.0
+Feature Extraction (Aula 3),1281,17,0.1486,0.9852,0.9503,4861.62
+"Fine-Tuning (Aula 3, 20 camadas)",1352241,20,0.1013,0.9923,0.9666,6601.19
